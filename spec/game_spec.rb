@@ -13,4 +13,13 @@ describe Game do
     19.times { game.roll(0) }
     expect(game.score).to eq 1
   end
+
+  it 'returns a score of twelve when a spare is score with 1 bonus point' do
+    game = Game.new
+    game.roll(1)
+    game.roll(9)
+    game.roll(1)
+    17.times { game.roll(0) }
+    expect(game.score).to eq 12
+  end
 end
