@@ -22,4 +22,13 @@ describe Game do
     17.times { game.roll(0) }
     expect(game.score).to eq 12
   end
+
+  it 'returns a score of fourteen when a strike is scored with 2 bonus points' do
+    game = Game.new
+    game.roll(10)
+    game.roll(1)
+    game.roll(1)
+    17.times { game.roll(0) }
+    expect(game.score).to eq 14
+  end
 end

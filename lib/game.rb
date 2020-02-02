@@ -4,7 +4,7 @@ class Game
   def initialize
     @game_score = []
     @roll_number = 0
-    @bonus_points_marker = false
+    @bonus_points_counter = 0
     @bonus_points = 0
   end
 
@@ -12,11 +12,14 @@ class Game
     @roll_number += 1
     @game_score << pins_knocked_down
     if @roll_number > 1 && @roll_number % 2 != 0 && @game_score[-3..-2].sum == 10
-      @bonus_points_marker = true
+      @bonus_points_counter += 1
     end
-    if @bonus_points_marker == true
+    if @bonus_points_counter > 0
       @bonus_points += pins_knocked_down
-      @bonus_points_marker = false
+      @bonus_points_counter -= 1
+    end
+    if @roll_number % 2 != 0 && pins_knocked_down == 10
+      @bonus_points_counter += 2
     end
   end
 
