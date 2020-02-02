@@ -31,4 +31,12 @@ describe Game do
     17.times { game.roll(0) }
     expect(game.score).to eq 14
   end
+
+  it 'returns a score 30 for 2 consecutive strikes' do
+    game = Game.new
+    game.roll(10)
+    game.roll(10)
+    16.times { game.roll(0) }
+    expect(game.score).to eq 30
+  end
 end
