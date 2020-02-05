@@ -31,4 +31,10 @@ describe Game do
     16.times { game.roll(0) }
     expect(game.score).to eq 14
   end
+
+  it 'returns a score of 300 for a perfect game' do
+    game = Game.new
+    12.times { game.roll(10) }
+    expect(game.score).to eq 300
+  end
 end
