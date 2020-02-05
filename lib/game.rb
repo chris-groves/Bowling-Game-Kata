@@ -1,29 +1,42 @@
 class Game
-  attr_accessor :bonus_points, :game_score, :bonus_points_marker
+
+  attr_accessor :score_tally, :roll_count, :total_score
 
   def initialize
-    @game_score = []
-    @roll_number = 0
-    @bonus_points_counter = 0
-    @bonus_points = 0
+    @score_tally = []
+    @total_score = 0
+    @roll_count = 0
+    @frame_count = 0
   end
 
   def roll(pins_knocked_down)
-    @roll_number += 1
-    @game_score << pins_knocked_down
-    if @roll_number > 1 && @roll_number % 2 != 0 && @game_score[-3..-2].sum == 10
-      @bonus_points_counter += 1
-    end
-    if @bonus_points_counter > 0
-      @bonus_points += pins_knocked_down
-      @bonus_points_counter -= 1
-    end
-    if @roll_number % 2 != 0 && pins_knocked_down == 10
-      @bonus_points_counter += 2
-    end
+    @score_tally << pins_knocked_down
   end
 
   def score
-    @game_score.sum + @bonus_points
+    while true do
+    if @score_tally[@roll_count] == 10
+       @total_score += @score_tally[@roll_count]
+       @total_score += @score_tally[@roll_count + 1]
+       @total_score += @score_tally[@roll_count + 2]
+       @roll_count += 1
+       @frame_count += 1
+    elsif spare?
+       @total_score += @score_tally[@roll_count] + @score_tally[@roll_count + 1]
+       @total_score += @score_tally[@roll_count + 2]
+       @roll_count += 2
+        @frame_count += 1
+    else
+       @total_score += @score_tally[@roll_count] + @score_tally[@roll_count + 1]
+       @roll_count += 2
+       @frame_count += 1
+    end
+    break if @frame_count == 10
+    end
+    @total_score
+  end
+
+  def spare?
+    @score_tally[@roll_count] + @score_tally[@roll_count + 1] == 10
   end
 end

@@ -14,7 +14,7 @@ describe Game do
     expect(game.score).to eq 1
   end
 
-  it 'returns a score of twelve when a spare is score with 1 bonus point' do
+  it 'returns a score of twelve when a spare is scored with 1 bonus point' do
     game = Game.new
     game.roll(1)
     game.roll(9)
@@ -28,15 +28,7 @@ describe Game do
     game.roll(10)
     game.roll(1)
     game.roll(1)
-    17.times { game.roll(0) }
-    expect(game.score).to eq 14
-  end
-
-  it 'returns a score 30 for 2 consecutive strikes' do
-    game = Game.new
-    game.roll(10)
-    game.roll(10)
     16.times { game.roll(0) }
-    expect(game.score).to eq 30
+    expect(game.score).to eq 14
   end
 end
